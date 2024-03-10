@@ -14,7 +14,7 @@ path1 = np.load("path_1.npy")
 path2 = np.load("path_2.npy")
 
 # ax = plt.axes(projection="3d")
-plt.figure("BC: XY view drone trajectories")
+plt.figure("BC_XY_path")
 ax = plt.axes()
 ax.set_title("Drone path")
 ax.grid(True)
@@ -35,10 +35,10 @@ ax.plot(path0[:,1], path0[:,2], label="Drone 0")
 ax.plot(path1[:,1], path1[:,2], label="Drone 1")
 ax.plot(path2[:,1], path2[:,2], label="Drone 2")
 plt.legend()
-plt.title("Motion paths")
+plt.title("Motion XY paths")
 
 # Plot Speed
-plt.figure(num="BC: Drone speed")
+plt.figure(num="BC_speed")
 speeds = np.array([np.linalg.norm(path0[:,4:6], axis=1),
                    np.linalg.norm(path1[:,4:6], axis=1),
                    np.linalg.norm(path2[:,4:6], axis=1)]).T
@@ -50,9 +50,10 @@ plt.ylabel("Speed (m/s)")
 plt.xlim([0, path0[-1,0]])
 plt.legend()
 plt.grid(True)
+plt.title("BC: Drone speed")
 
 # Plot distance
-plt.figure(num="BC: Inter-agent distances")
+plt.figure(num="BC_distance")
 distances = np.array([np.linalg.norm(path0[:,1:4]-path1[:,1:4], axis=1),
                       np.linalg.norm(path1[:,1:4]-path2[:,1:4], axis=1),
                       np.linalg.norm(path2[:,1:4]-path0[:,1:4], axis=1)]).T
@@ -65,9 +66,10 @@ plt.ylabel("Inter-agent distance (m)")
 plt.xlim([0, path0[-1,0]])
 plt.legend()
 plt.grid(True)
+plt.title("BC: Inter-agent distances")
 
 # Plot order
-plt.figure(num="BC: Order")
+plt.figure(num="BC_order")
 headings = []
 for i in range(1,len(path0)):
     heading = path0[i,4:6]/np.linalg.norm(path0[i,4:6]) \
@@ -79,4 +81,5 @@ plt.xlabel("Time (s)")
 plt.ylabel("Order")
 plt.xlim([0, path0[-1,0]])
 plt.grid(True)
+plt.title("BC: Drone orders")
 plt.show()
