@@ -51,7 +51,7 @@ class Drone:
         self.path.append(np.concatenate([[self.time_stamp], self.state, self.control]))
         self.__update_known_obs(known_obs)
 
-    def setupController(self, dt=0.1):
+    def setupController(self, dt=0.05):
         # nmpc timestep
         self.timestep = dt
 
