@@ -10,8 +10,7 @@ if __name__ == "__main__":
     drones = []
     # Initialize Drone
     for i in range(NUM_UAV):
-        drone = Drone(i, STARTS[i,:], np.array([0,0,0]), ROBOT_RADIUS, known_obs)
-        drone.setupController(dt=TIMESTEP)
+        drone = Drone(i, INIT_STATES[i,:], known_obs)
         drones.append(drone)
     
     compute_times = []
@@ -21,12 +20,14 @@ if __name__ == "__main__":
         run = True
         while run:
             times = []
+            controls = []
             for i in range(NUM_UAV):
                 # compute velocity using behavior
                 start = time.time()
-                control = drones[i].computeControlSignal(drones, known_obs)
+                controls.append(drones[i].computeControlSignal(drones, known_obs))
                 times.append(time.time()-start)
-                drones[i].updateState(control, TIMESTEP, known_obs)
+            for i in range(NUM_UAV):
+                drones[i].updateState(controls[i], known_obs)
 
             compute_times.append(times)
             iter += 1

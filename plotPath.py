@@ -27,7 +27,7 @@ for j in range(OBSTACLES.shape[0]):
     x, y, r = OBSTACLES[j,:]
     a, b = getCircle(x, y, r)
     ax.plot(a, b, '-k')
-    a, b = getCircle(x, y, r+ROBOT_RADIUS-0.05)
+    a, b = getCircle(x, y, r+DRONE_R-0.05)
     ax.plot(a, b, '--k')
 
 # Plot path
@@ -35,7 +35,7 @@ ax.plot(path0[:,1], path0[:,2], label="Drone 0")
 ax.plot(path1[:,1], path1[:,2], label="Drone 1")
 ax.plot(path2[:,1], path2[:,2], label="Drone 2")
 plt.legend()
-plt.title("Motion XY paths")
+plt.title("BC: Motion XY paths")
 
 # Plot Speed
 plt.figure(num="BC_speed")
@@ -60,7 +60,7 @@ distances = np.array([np.linalg.norm(path0[:,1:4]-path1[:,1:4], axis=1),
 plt.fill_between(path0[:,0], np.min(distances,axis=1), np.max(distances,axis=1), color="#1f77b4", label="Max/Min", alpha=0.3)
 plt.plot(path0[:,0], np.mean(distances,axis=1), 'b-', label="Average")
 plt.plot([path0[0,0], path0[-1,0]], [DREF, DREF], 'g--', label='DREF')
-plt.plot([path0[0,0], path0[-1,0]], [2*ROBOT_RADIUS, 2*ROBOT_RADIUS], 'k--', label="Safety radius")
+plt.plot([path0[0,0], path0[-1,0]], [2*DRONE_R, 2*DRONE_R], 'k--', label="Safety radius")
 plt.xlabel("Time (s)")
 plt.ylabel("Inter-agent distance (m)")
 plt.xlim([0, path0[-1,0]])
